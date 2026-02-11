@@ -3,27 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tu Tarro de Razones Imparables 💪❤️</title>
+  <title>Para ti, mi Kath ❤️</title>
   <link rel="stylesheet" href="styles.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
 </head>
 <body>
-  <div class="container">
-    <h1>Tu Tarro Mágico</h1>
-    <p class="subtitle">Toca el tarro para sacar una razón por la que eres imparable 🌟</p>
-    
-    <div class="jar-container" id="jar">
-      <div class="jar">
-        <div class="lid"></div>
-        <div class="body">
-          <div class="note-fold" id="note"></div>
+  <div id="screen1" class="screen active">
+    <div class="welcome-container">
+      <div class="welcome-box">
+        <h1>Mi amor más bonito</h1>
+        <p>Kath, este tarrito lo hice pensando en ti…<br>en lo mucho que te admiro y en lo feliz que me haces cada día.</p>
+        <p>Presiona para abrirlo 💕</p>
+      </div>
+      <button class="btn continue-btn">Continuar →</button>
+    </div>
+  </div>
+
+  <div id="screen2" class="screen">
+    <div class="jar-container">
+      <div class="frame">
+        <div class="image-display">
+          <img id="currentImage" src="" alt="Nota especial" />
+        </div>
+        <div class="note-box">
+          <p id="noteText">Presiona para sacar una nota especial solo para ti</p>
         </div>
       </div>
+      <button id="drawBtn" class="btn draw-btn">Sacar una nota 💌</button>
     </div>
-    
-    <div class="message" id="message">Toca para descubrir...</div>
-    
-    <button id="shakeBtn">¡Saca una nota! ✨</button>
   </div>
 
   <script src="script.js"></script>
