@@ -1,55 +1,64 @@
+// Datos - cada imagen con su nota
 const notes = [
-  "Eres imparable porque tienes una determinación que no se rinde ni con obstáculos gigantes. 💪",
-  "Tu mente es un superpoder: piensas soluciones donde otros ven problemas. 🧠",
-  "Recuerda esa vez que lograste [tu logro específico]… eso no lo hace cualquiera. Tú sí. 🔥",
-  "Eres fuerte no porque nunca llores, sino porque sigues adelante incluso con lágrimas. ❤️",
-  "Tu empatía y bondad mueven montañas; el mundo es mejor porque existes. 🌍",
-  "Aunque estemos a kilómetros, tu energía me llega y me motiva a ser mejor cada día. 🌟",
-  "Tienes un talento increíble para [su hobby]. ¡Sigue explotándolo! 🎨",
-  "Eres valiente: te atreves a soñar grande aunque el camino sea incierto. 🚀",
-  "Tu sonrisa (aunque sea por cámara) ilumina todo, incluso los días grises. 😊",
-  "Nadie maneja el estrés como tú; sales más fuerte de cada tormenta. ⛈️",
-  "Eres inteligente, creativa y única. No hay copia de ti en el mundo. ✨",
-  "Cada meta que te propones, la alcanzas porque crees en ti misma. 🎯",
-  "Tu perseverancia es inspiradora; yo aprendo de ti todos los días. 📈",
-  "Eres hermosa por dentro y por fuera, y lo mejor es que lo sabes usar para ayudar a otros. 💖",
-  "La distancia no nos ha debilitado; al contrario, ha hecho nuestro amor más fuerte. Tú eres parte de eso. 💕",
-  "Tienes un corazón gigante que no cabe en el pecho, y eso te hace invencible. 🫀",
-  "Cuando dudes, recuerda: yo creo en ti más de lo que las palabras pueden decir. 🫶",
-  "Eres una guerrera silenciosa; luchas batallas que nadie ve y siempre ganas. ⚔️",
-  "Tu capacidad de reinventarte es impresionante. Nada te detiene por mucho tiempo. 🔄",
-  "Eres mi musa de motivación; verte esforzarte me empuja a dar lo mejor de mí. 🌹"
+  { img: "espagetijpg.jpg",      text: "Pensé que me encantaba el spaguetti, pero luego te conocí a ti y me di cuenta que tú me encantas." },
+  { img: "foca-alien.jpg",       text: "Mi amor por ti es algo imposible de medir, incluso podría decir que es fuera de este mundo." },
+  { img: "foca-elegante.png",    text: "Amor, no importa lo que la vida nos tenga por delante, saldremos juntos de todo lo que venga." },
+  { img: "foca-enamorada.jpg",   text: "Todo lo mío es tuyo y todo lo tuyo quiero que sea mío. Te amo, Kath." },
+  { img: "foca-lista.png",       text: "Yo siempre voy a creer en ti, porque sé lo lista que eres y lo mucho que te esfuerzas. Eres mi más grande orgullo, Kath." },
+  { img: "foca-mamada.png",      text: "Si alguien se atreviera algún día a lastimarte, que ni le rece al de arriba, porque para allá lo voy a mandar." },
+  { img: "gato-pene.jpg",        text: "No sé si la imagen quite un poco el ambiente romántico jeje, pero quería que rieras un rato, preciosa." },
+  { img: "nana.jpg",             text: "Eres una gran persona, amor. Eres buena, amable y una pareja increíble. De verdad, cada día contigo es maravilloso." },
+  { img: "pizza.jpg",            text: "Una pizza de corazón para la persona que se robó mi corazón." },
+  { img: "tapioca.jpg",          text: "Yo viéndote bien emocionado (ojos de tapioca xd)." },
+  { img: "tiburon-panzon.jpg",   text: "Mira un tiburón panzón, todo bonito, todo panzón." },
+  { img: "tuyyo.jpeg",           text: "Jugar Sky contigo es lo mejor. Me relajo tanto que incluso olvido la hora. De verdad me encanta pasar tiempo contigo. Como te dije una vez, hablar contigo es lo mejor de mi día." },
+  { img: "ice-spice.jpg",        text: "Sé que eres fan de ella, así que mira un dibujito de Ice Spice." }
 ];
 
-const jar = document.getElementById('jar');
-const noteElement = document.getElementById('note');
-const message = document.getElementById('message');
-const btn = document.getElementById('shakeBtn');
+const screen1 = document.getElementById('screen1');
+const screen2 = document.getElementById('screen2');
+const continueBtn = document.querySelector('.continue-btn');
+const drawBtn = document.getElementById('drawBtn');
+const currentImage = document.getElementById('currentImage');
+const noteText = document.getElementById('noteText');
 
-function getRandomNote() {
-  return notes[Math.floor(Math.random() * notes.length)];
-}
-
-function showNote() {
-  // Reset
-  noteElement.style.opacity = '0';
-  jar.classList.remove('shake');
-  
-  // Shake animation
-  void jar.offsetWidth; // trigger reflow
-  jar.classList.add('shake');
-  
+// Ir a pantalla 2
+continueBtn.addEventListener('click', () => {
+  screen1.classList.remove('active');
   setTimeout(() => {
-    const randomNote = getRandomNote();
-    noteElement.textContent = randomNote;
-    noteElement.style.opacity = '1';
-    message.textContent = "¡Eres increíble! ❤️ Saca otra cuando quieras";
-  }, 800); // después del shake
-}
+    screen2.classList.add('active');
+    // Mostrar primera imagen al entrar (opcional)
+    const first = notes[0];
+    currentImage.src = first.img;
+    noteText.textContent = first.text;
+  }, 800);
+});
 
-// Click en el tarro o botón
-jar.addEventListener('click', showNote);
-btn.addEventListener('click', showNote);
+// Lógica de "sacar nota"
+drawBtn.addEventListener('click', () => {
+  if (drawBtn.disabled) return;
+  
+  drawBtn.disabled = true;
+  drawBtn.textContent = "Girando... 💫";
+  noteText.textContent = "¡Saliendo sorpresa!";
 
-// Primera nota al cargar (opcional)
-showNote();
+  // Efecto ruleta
+  currentImage.classList.add('rolling');
+
+  // Duración total del giro ~2.8–3.5 segundos
+  const spinTime = 2800 + Math.random() * 700;
+
+  setTimeout(() => {
+    currentImage.classList.remove('rolling');
+    
+    // Elegir nota aleatoria
+    const randomIndex = Math.floor(Math.random() * notes.length);
+    const selected = notes[randomIndex];
+
+    currentImage.src = selected.img;
+    noteText.textContent = selected.text;
+
+    drawBtn.disabled = false;
+    drawBtn.textContent = "Sacar otra nota 💌";
+  }, spinTime);
+});
